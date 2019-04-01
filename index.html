@@ -1,0 +1,127 @@
+ <html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="icon" href="images/noise_icon.png">
+    <title>Noise Generator</title>
+  </head>
+  <body>
+    <!--Topbar-->
+    <div class="topbar">
+      <div class="file-options">
+        <label>FILE NAME<input type="text" value="NewNoiseTexture"></label>
+        <label>SIZE
+          <select>
+            <option value="256">256x256</option>
+            <option value="512">512x512</option>
+            <option value="1024">1024x1024</option>
+            <option value="2048">2048x2048</option>
+          </select>
+        </label>
+        <label>TILEABLE<input type="checkbox"></label>
+      </div>
+      <div class="file-buttons">
+        <button name="refresh" onclick="RefreshNoiseTexture()">Refresh</button>
+        <button style="color: yellow;" class="Save" name="save">Save</button>
+      </div>
+    </div>
+    <!--Main-->
+    <main class="main-window">
+      <!--Noise-->
+      <div class="noise-window">
+        <canvas id="noiseCanvas" style = "color:white;" width="512" height="512"></canvas>
+      </div>
+      <!--Settings-->
+      <div class="side-menu">
+        <table>
+          <caption>Layer Settings</caption>
+          <tr>
+            <th>Name</th>
+            <td><input type="text" value="Background"></th>
+          </tr>
+          <tr>
+            <th>Index</td>
+            <td><button type="button" name="button"><</button> 0 <button type="button" name="button">></button></td>
+          </tr>
+        </table>
+        <table>
+          <caption>Noise Settings</caption>
+          <tr>
+            <th>Seed</td>
+            <td><input type="text" value="$sa!2v"></td>
+          </tr>
+          <tr>
+            <th>Size</td>
+            <td><input type="number" min="0" max="1000" value="1"></td>
+          </tr>
+          <tr>
+            <th>Steps</td>
+            <td><input type="number" min="0" max="1000" value="1"></td>
+          </tr>
+        </table>
+      </div>
+    </main>
+  </body>
+
+  <script src="perlin.js"></script>
+  <script>
+    var canvas = document.getElementById('noiseCanvas');
+    canvas.width = canvas.height = 512;
+    var ctx = canvas.getContext('2d');
+    var image = ctx.createImageData(canvas.width, canvas.height);
+    var data = image.data;
+    var size = 85;
+    var start;
+
+    var x1 = 0;
+    var x2 = 10;
+    var y1 = 0;
+    var y2 = 10;
+
+    var timee= 0;
+
+    //CreateNoiseImage();
+    var noiseAnimation = setInterval(CreateNoiseImage, 10);
+
+    function CreateNoiseImage(){
+      start = Date.now();
+      for (var x = 0; x < canvas.width; x++) {
+        for (var y = 0; y < canvas.height; y++) {
+          
+          var value;
+
+          var s = x/canvas.width;
+          var t = y/canvas.height;
+          var dx = x2-x1;
+          var dy = y2-y1;
+
+          var nx = x1+Math.cos(s*2*Math.PI)*dx/(2*Math.PI);
+          var ny = y1+Math.cos(t*2*Math.PI)*dy/(2*Math.PI);
+          var nz = x1+Math.sin(s*2*Math.PI)*dx/(2*Math.PI);
+          var nt = y1+Math.sin(t*2*Math.PI)*dy/(2*Math.PI);
+
+          value = (noise.perlin4(nx, ny, nz, nt) + 1)/2;
+
+          //value = (noise.perlin4(x/size, y / size, z) + 1)/2;
+
+          value *= 256;
+          var cell = (x + y * canvas.width) * 4;
+          data[cell] = value;// r
+          data[cell + 1] = value;// g
+          data[cell + 2] = value;// b
+          data[cell + 3] = 255; // alpha.
+        }
+      }
+      var end = Date.now();
+      ctx.fillColor = 'black';
+      ctx.fillRect(0, 0, 1024, 1024);
+      ctx.putImageData(image, 0, 0);
+      ctx.font = '16px sans-serif '
+      ctx.textAlign = 'center';
+      ctx.fillText('Rendered in ' + (end - start) + ' ms', canvas.width / 2, canvas.height - 20);
+      if(console)console.log('Rendered in ' + (end - start) + ' ms');
+
+      timee += 0.01;
+    }
+  </script>
+</html>

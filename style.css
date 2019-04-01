@@ -1,0 +1,159 @@
+body{
+  margin: 0;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+}
+/* Top Bar */
+.topbar{
+  position: absolute;
+  width: 100%;
+  height: 70px;
+  box-shadow: 0 0 15px 0 black;
+  background-color: rgb(42,42,47);
+  background-image: linear-gradient( rgb(45,45,50), rgb(25,25,30) 80%, rgb(19,19,23));
+  z-index: 2;
+  font-size: 25px;
+  font-weight: bold;
+  color: rgb(240,240,240);
+  text-shadow: 0 1px rgb(240,240,240);
+}
+
+.topbar .file-options{
+  height: 100%;
+  float: left;
+  display: flex;
+  user-select: none;
+}
+
+.topbar .file-buttons{
+  height: 100%;
+  float: right;
+  display: flex;
+}
+
+.topbar label{
+  margin: auto;
+  margin-left: 20px;
+  padding: 5px;
+  display: flex;
+}
+
+.topbar input{
+  margin: auto;
+  margin-left: 5px;
+  font-size: 17px;
+
+}
+
+.topbar select{
+  margin: auto;
+  margin-left: 5px;
+  font-size: 20px;
+}
+
+.topbar button{
+  padding: 10px;
+  padding-bottom: 5px;
+  font-size: 25px;
+  margin: auto;
+  margin-right: 15px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  color: white;
+  border-bottom: 2px solid black;
+  background-color:  transparent;
+  border: 1px solid grey;
+  text-shadow: 0px 2px 2px black;
+  border-radius: 3px;
+  background-image: linear-gradient(rgba(0,0,0,0) 90%, rgba(255,255,255,0.4));
+}
+
+.topBar button:hover{
+  border: 1px solid yellow;
+  background-image: none;
+  background-color: rgba(255,255,255, 0.5)
+}
+
+.topBar button:active{
+  background-color: black;
+  background-image: none;
+  border: 1px solid yellow;
+}
+/* Main */
+.main-window{
+  position: absolute;
+  top: 70px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+/* Side Menu */
+.side-menu{
+  position: absolute;
+  width: 350px;
+  height: 100%;
+  background-color: rgb(20,20,24);
+  box-shadow: 0 0 20px 0 rgba(0,0,0,0.5);
+  z-index: 1;
+  border-right: solid 2px rgb(12,12,12);
+  user-select: none;
+  cursor: default;
+}
+
+.side-menu input{
+  color: white;
+  font-size: 15px;
+  background-color: rgba(0,0,0,0.3);
+  border:none;
+  padding: 5px;
+}
+
+.side-menu table{
+  width: 100%;
+  padding: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-top: 40px;
+  font-size: 18px;
+}
+
+.side-menu td{
+  padding: 6px;
+}
+
+.side-menu th{
+  width: 100%;
+  padding: 6px;
+  text-align: left;
+  color: rgb(230,230,230);
+}
+
+.side-menu caption{
+  text-align: left;
+  padding-left: 25px;
+  font-size: 20px;
+  font-weight: bold;
+  border-bottom: solid 1px white;
+  font-style: italic;
+}
+
+/* Noise Window */
+.noise-window{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 350px;
+  right: 0;
+  overflow: hidden;
+  background-color: rgb(10,10,12);
+  background-image: url('./images/dotted_background.png');
+}
+
+.noise-window canvas{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  box-shadow: 0 0 7px 0 black;
+  transform: translate(-50%, -50%);
+}
